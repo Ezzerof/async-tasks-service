@@ -37,4 +37,35 @@ class ForgotPasswordTest extends TestCase
 
         $response->assertStatus(422)->assertJsonValidationErrors('email');
     }
+
+    public function test_fails_with_invalid_email_format(): void
+    {
+        $response = $this->postJson('/api/v1/auth/forgot-password', [
+            'email' => 'not-an-email',
+        ]);
+
+        $response->assertStatus(422)->assertJsonValidationErrors('email');
+    }
+
+    public function test_token_is_written_to_password_reset_tokens_table(): void
+    {
+        User::factory()->create(['email' => 'john@example.com']);
+
+        $this->postJson('/api/v1/auth/forgot-password', [
+            'email' => 'john@example.com',
+        ]);
+
+        $this->assertDatabaseHas('password_reset_tokens', ['email' => 'john@example.com']);
+    }
+
+    public function test_second_request_within_60_seconds_is_throttled(): void
+    {
+        User::factory()->create(['email' => 'john@example.com']);
+
+        $this->postJson('/api/v1/auth/forgot-password', ['email' => 'john@example.com']);
+
+        $response = $this->postJson('/api/v1/auth/forgot-password', ['email' => 'john@example.com']);
+
+        $response->assertStatus(422)->assertJsonStructure(['message']);
+    }
 }
