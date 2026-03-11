@@ -22,8 +22,9 @@ class GenerateReportController extends Controller
         }
 
         $report = SalesReport::create([
-            'user_id' => $request->user()->id,
-            'status'  => SalesReport::STATUS_PENDING,
+            'user_id'  => $request->user()->id,
+            'status'   => SalesReport::STATUS_PENDING,
+            'progress' => 0,
         ]);
 
         GenerateSalesReportJob::dispatch($report);
