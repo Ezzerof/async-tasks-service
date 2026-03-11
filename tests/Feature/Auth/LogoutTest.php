@@ -27,4 +27,36 @@ class LogoutTest extends TestCase
 
         $response->assertUnauthorized();
     }
+
+    public function test_get_user_returns_401_after_logout(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user, 'web')
+            ->withHeader('Origin', 'http://localhost')
+            ->postJson('/api/v1/auth/logout');
+
+        // Reset guard cache so the next request has no authenticated user
+        $this->app->make('auth')->forgetGuards();
+
+        $response = $this->getJson('/api/v1/auth/user');
+
+        $response->assertUnauthorized();
+    }
+
+    public function test_second_logout_returns_401(): void
+    {
+        $user = User::factory()->create();
+
+        $this->actingAs($user, 'web')
+            ->withHeader('Origin', 'http://localhost')
+            ->postJson('/api/v1/auth/logout');
+
+        // Reset guard cache so the next request has no authenticated user
+        $this->app->make('auth')->forgetGuards();
+
+        $response = $this->postJson('/api/v1/auth/logout');
+
+        $response->assertUnauthorized();
+    }
 }
