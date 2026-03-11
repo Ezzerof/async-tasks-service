@@ -16,13 +16,13 @@
  ## Transcript
 
  ### User
-
+```
 I requested to create a laravel project inside the curent directory. By mistake I cleared the chat.
-
+```
  ---
 
  ### Assistant
-
+```
 
 ╭───────────────────────────────────────────────────────────────────────────────────────────────╮
 │ Plan to implement                                                                             │
@@ -103,12 +103,12 @@ I requested to create a laravel project inside the curent directory. By mistake 
 
   To start the dev server:
   php artisan serve
-
+```
 
  ---
 
  ### User
-
+```
 ❯ I would like to have a directory called docs that will hold .md files from each my session     
 with you.                                                                                        
                                                                                                  
@@ -118,11 +118,11 @@ On that file I will add our raw and unedited chat transcript. This folder must n
 by you.                                                                                          
                                                                                                  
 Please suggest a template of the Chat transcript file.   
-
+```
  ---
 
  ### Assistant
-
+```
 ● Read 1 file (ctrl+o to expand)                                                                 
                                                    
 ● This is a different task. Let me overwrite the plan with the new one.                          
@@ -202,68 +202,68 @@ Please suggest a template of the Chat transcript file.
  - The docs/ directory is user-managed — Claude will not touch it
  - This will be noted in memory so future sessions respect it
  - No .gitignore changes are planned unless the user requests it
-
+```
  ---
 
   ### User
-
+```
 ❯ Now I would like to update the readme.md with details about the project.          
                                                                                     
 What would be the best approach, to add in bulk everything I planned about the      
 project or start adding bits. As an example we will start with Authorization first  
 and we will add only what will be implemented and keep changing it after each       
 feature implementation?  
-
+```
  ---
 
-            ### Assistant
+### Assistant
+```
+Which authentication mechanism is (or will be) implemented in async-tasks-service? 
+```
+---
 
-            Which authentication mechanism is (or will be) implemented in async-tasks-service? 
+### User
+```
+What would you suggest for a Technical assessment that's not over-engineered and at the same time is close to a production  
+```
+---
 
-            ---
+### Assistant
+```
+● Recommendation: Laravel Sanctum — here's why it's the right fit for a technical 
+  assessment:                                                                       
+                                                                                    
+  ┌───────────────────┬───────────────────────────┬───────────┬────────────────┐    
+  │                   │          Sanctum          │   JWT     │    Passport    │    
+  │                   │                           │  (tymon)  │                │    
+  ├───────────────────┼───────────────────────────┼───────────┼────────────────┤    
+  │ Extra package     │ No (ships with Laravel    │ Yes       │ Yes            │    
+  │ needed            │ 12)                       │           │                │    
+  ├───────────────────┼───────────────────────────┼───────────┼────────────────┤    
+  │ Complexity        │ Low                       │ Medium    │ High           │    
+  ├───────────────────┼───────────────────────────┼───────────┼────────────────┤    
+  │ Production use    │ Very common               │ Common    │ Overkill for   │    
+  │                   │                           │           │ APIs           │    
+  ├───────────────────┼───────────────────────────┼───────────┼────────────────┤    
+  │ Standard pattern  │ Authorization: Bearer     │ Same      │ OAuth2 flows   │    
+  │                   │ <token>                   │           │                │
+  └───────────────────┴───────────────────────────┴───────────┴────────────────┘
 
-              ### User
+  Sanctum's API token mode gives you:
+  - POST /api/auth/register — create user + return token
+  - POST /api/auth/login — authenticate + return token
+  - POST /api/auth/logout — revoke token
+  - Protected routes via auth:sanctum middleware
 
-            What would you suggest for a Technical assessment that's not over-engineered and at the same time is close to a production  
+  It's stateless, industry-standard, zero extra dependencies, and interviewers will
+  recognize it as a solid production choice without thinking you over-engineered it.
 
-            ---
+● Updated plan                    
+  ⎿  /plan to preview
 
-            ### Assistant
-
-            ● Recommendation: Laravel Sanctum — here's why it's the right fit for a technical 
-              assessment:                                                                       
-                                                                                                
-              ┌───────────────────┬───────────────────────────┬───────────┬────────────────┐    
-              │                   │          Sanctum          │   JWT     │    Passport    │    
-              │                   │                           │  (tymon)  │                │    
-              ├───────────────────┼───────────────────────────┼───────────┼────────────────┤    
-              │ Extra package     │ No (ships with Laravel    │ Yes       │ Yes            │    
-              │ needed            │ 12)                       │           │                │    
-              ├───────────────────┼───────────────────────────┼───────────┼────────────────┤    
-              │ Complexity        │ Low                       │ Medium    │ High           │    
-              ├───────────────────┼───────────────────────────┼───────────┼────────────────┤    
-              │ Production use    │ Very common               │ Common    │ Overkill for   │    
-              │                   │                           │           │ APIs           │    
-              ├───────────────────┼───────────────────────────┼───────────┼────────────────┤    
-              │ Standard pattern  │ Authorization: Bearer     │ Same      │ OAuth2 flows   │    
-              │                   │ <token>                   │           │                │
-              └───────────────────┴───────────────────────────┴───────────┴────────────────┘
-
-              Sanctum's API token mode gives you:
-              - POST /api/auth/register — create user + return token
-              - POST /api/auth/login — authenticate + return token
-              - POST /api/auth/logout — revoke token
-              - Protected routes via auth:sanctum middleware
-
-              It's stateless, industry-standard, zero extra dependencies, and interviewers will
-              recognize it as a solid production choice without thinking you over-engineered it.
-
-            ● Updated plan                    
-              ⎿  /plan to preview
-
- 
+ ```
   ### Assistant
-
+```
  Ready to code?                                                                     
                                                                                     
  Here is Claude's plan:
@@ -367,11 +367,11 @@ feature implementation?
 
  - No special .env keys needed for token-only mode
  - Protected routes use ->middleware('auth:sanctum')
-
+```
  ---
  
  ### User
-
+```
 Updated plan
   ⎿  /plan to preview
   ⎿  Tool use rejected with user message: Please rewrite the Readme.md with the 
@@ -386,11 +386,11 @@ Updated plan
      - Authorization( Sanctum SPA)
 
      The tech stach will be PHP, Laravel, Redis, Mysql for now.
-
+```
  ---
 
  ### Assistant
-
+```
 Plan: README.md – Rewrite with Project Details                                  
 
  Context
@@ -466,11 +466,11 @@ Plan: README.md – Rewrite with Project Details
  Verification
 
  Read the written README and confirm accuracy against the project stack.
-
+```
  ---
 
   ### User
-
+```
 ❯ Please create me a plan for the User Authorization with Sanctum.                  
                                                                                     
 We will have two user roles:                                                        
@@ -480,11 +480,11 @@ We will have two user roles:
 We must have a forgot password feature and reset password.                          
                                                                                     
 If I missed something let me know  
-
+```
  ---
 
  ### Assistant
-
+```
  Ready to code?                                                                     
                                                                                     
  Here is Claude's plan:                                                             
@@ -656,11 +656,11 @@ If I missed something let me know
  roles
  3. Check storage/logs/laravel.log after hitting POST /api/auth/forgot-password —
  password reset email content should appear in the log
-
+```
  ---
 
  ### Assistant
-
+```
  Ready to code?                                                                     
                                                                                     
  Here is Claude's plan:
@@ -887,14 +887,14 @@ If I missed something let me know
  reset link
  4. Confirm UserResource response shape: only id, name, email, role, created_at —
  no remember_token or password
-
+```
  ---
 
   ### User
-
+```
 ❯ Please check the .gitinit file and fill it with recommended files to not track    
 and stage. The docs folder shouldn't be included as we need to push it    
-
+```
  ---
 
 
